@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DJ Yabi Splash</title>
+  <link rel="stylesheet" href="style2.css">
+  <script src="carousel.js" defer></script>
+  <script src="overlay-video.js" defer></script>
+ 
+  <style>
+    body {
+      margin: 0;
+      background: #FAF9F6;
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+     
+    }
+
+    .image-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .splash-image {
+      position: absolute;
+      width: 300px;
+      height: auto;
+      object-fit: cover;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+      pointer-events: none;
+    }
+  </style>
+  
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+          <div class="logo" id="logo">
+            <img src="images/logo marron.png" alt="DJ Yabi Logo" class="logo-image">
+          </div>
+        </div>
+      </header>
+    
+      <main id="mainContent">
+        <div class="image-container" id="imageContainer"></div>
+      </main>
+    
+      <nav class="bottom-menu">
+        <div class="menu-left">
+          <a href="about.html">About</a>
+          <a href="MyMixes.html">Mixes</a>
+          <a href="videos.html">Videos</a>
+        </div>
+        <div class="menu-right">
+          <a href="index.html">Photos</a>
+          <a href="events.html">Events</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </nav>
+    
+      <div id="teaserOverlay">
+        <video loop id="teaserVideo" playsinline muted>
+          <source src="videos/teaser.mp4" type="video/mp4" />
+        </video>
+      </div>
+      
+      
+  <script>
+    const images = [
+      'images/image00001.jpeg',
+      'images/image00003.jpeg',
+      'images/image00006.jpeg',
+      'images/P1020098.JPG',
+      'images/image00010.jpeg',
+      'images/image00019.jpeg',
+      'images/P1020092.JPG',
+      'images/image00025.jpeg',
+      'images/P1020073.JPG',
+      'images/image00026.jpeg'
+
+    ];
+
+    let index = 0;
+    const container = document.getElementById('imageContainer');
+    let currentImage = null;
+// Preload images
+const preloadedImages = [];
+  let imagesLoaded = 0;
+
+  images.forEach((src, i) => {
+    const img = new Image();
+    img.src = src;
+    img.onload = () => {
+      imagesLoaded++;
+      if (imagesLoaded === images.length) {
+        startAnimation(); // Only start when all are loaded
+      }
+    };
+    preloadedImages[i] = img;
+  });
+
+  function showNextImage() {
+    if (currentImage) {
+      container.removeChild(currentImage);
+    }
+
+    const img = preloadedImages[index].cloneNode();
+    img.className = 'splash-image';
+    // Get center of screen
+    const a = window.innerWidth / 2;
+    const b = window.innerHeight / 2;
+
+      // Generate random position within ±10px of center
+      const offsetX = a + (Math.random() * 140 - 70);
+      const offsetY = b + (Math.random() * 120 - 60);
+
+      // Position image so its center is at (offsetX, offsetY)
+      img.style.left = `${offsetX}px`;
+      img.style.top = `${offsetY}px`;
+      img.style.transform = 'translate(-50%, -50%)';
+
+      container.appendChild(img);
+      currentImage = img;
+
+      index = (index + 1) % images.length;
+    }
+
+    showNextImage();
+    setInterval(showNextImage, 400); // Every 1 second
+  </script>
+  
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DJ Yabi - Photos</title>
+  <link rel="stylesheet" href="style2.css">
+  <script src="carousel.js" defer></script>
+  <script src="overlay-video.js" defer></script>
+</head>
+<body>
+  <header>
+    <div class="logo-container">
+    <div class="logo" id = "logo">
+      <div class="dj">DJ</div>
+      <div class="yabi">Yabi</div>
+    </div>
+  </div>
+    <nav>
+      <a href="about.html">About</a>
+      <a href="MyMixes.html">Mixes</a>
+      <a href="videos.html">Videos</a>
+      <a href="photos2.html">Photos</a>
+      <a href="events.html">Events</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+<main id="mainContent">
+  <section class="photo-carousel-section">
+   
+    <div class="carousel-wrapper">
+      <button class="carousel-button prev">&#10094;</button>
+      <div class="carousel-track" id="carouselTrack">
+        <img src="images/P1020073.JPG" alt="Photo 1" />
+        <img src="images/image00001.jpeg" alt="Photo 2" />
+        <img src="images/image00003.jpeg" alt="Photo 3" />
+        <img src="images/image00006.jpeg" alt="Photo 4" />
+        <img src="images/image00010.jpeg" alt="Photo 5" />
+        <img src="images/image00019.jpeg" alt="Photo 6" />
+        <img src="images/image00025.jpeg" alt="Photo 7" style="object-position: 20% 50%;"/>
+        <img src="images/image00026.jpeg" alt="Photo 8" style="object-position: 80% 50%;"/>
+        <img src="images/P1020092.JPG" alt="Photo 9" style="object-position: 60% 50%;"/>
+        <img src="images/P1020098.JPG" alt="Photo 10" />
+      </div>
+      <button class="carousel-button next">&#10095;</button>
+    </div>
+  </section>
+  </main>
+  <div id="teaserOverlay">
+    <video autoplay muted loop id="teaserVideo">
+      <source src="images/IMG_2094.mov" type="video/mp4" />
+    </video>
+  </div>
+</body>
+</html>

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DJ Yabi - Dublin Events</title>
+  <link rel = "stylesheet" href = "style2.css">
+  <style>
+     @font-face {
+        font-family: "fett";
+        src: url(fonts/TestSöhneMono-Fett.otf) format("truetype");
+        font-weight: normal;
+        font-style: normal;
+        
+    }
+
+    @font-face {
+      font-family: "Sohne-Leicht";
+      src: url(fonts/TestSöhneMono-Leicht.otf) format("opentype");
+      font-weight: normal;
+      font-style: normal;
+    }
+     /* Style for bold text in event info */
+    .event-info strong {
+        font-weight: bold;
+        font-family: "fett", sans-serif;
+    }
+  
+    .header-Dublin {
+      text-align: center;
+      padding: 20px;
+      background-color: #FAF9F6;
+      font-family: "fett";
+      font-size: 1.1rem;
+    }
+    
+    .city-title {
+      color: #5A2E2E;
+      font-size: 1.5em;
+      margin: 20px 0;
+      
+    }
+    
+    .map-container-dublin {
+      position: relative;
+      width: 90%;
+      max-width: 1000px;
+      height: 70vh;
+      margin: 0 auto;
+      background: #FFFDFA;
+      border: 1.5px solid #5A2E2E;
+      
+    }
+    
+    .dublin-map {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Ensures image covers the container */
+        display: block;
+    }
+    
+    .event-pin {
+      position: absolute;
+      cursor: pointer;
+      z-index: 10;
+      transform: translate(-50%, -100%);
+    }
+    
+    .event-pin .pin-dot {
+      width: 10px;
+      height: 10px;
+      background: #5A2E2E;
+      border-radius: 50%;
+      border: 1px solid #FAF9F6;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+    
+    .event-pin .event-label {
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #5A2E2E;
+      color: #FAF9F6;
+      padding: 4px 8px;
+      border-radius: 2px;
+      font-size: 10px;
+      white-space: nowrap;
+      margin-bottom: 5px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    
+    .event-pin:hover .event-label {
+      opacity: 1;
+    }
+    
+    .event-info {
+      position: absolute;
+      background: rgba(255, 253, 250, 0.95);
+      border: 2px solid #5A2E2E;
+      border-radius: 8px;
+      padding: 10px;
+      width: 220px;
+      
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      z-index: 20;
+      display: none;
+    }
+    
+    .event-info h3 {
+      color: #D38F0A;
+      font-size: 14px;
+      margin-left: 10px;
+    }
+    
+    .event-info p {
+      color: #5A2E2E;
+      font-size: 12px;
+      font-family: "Sohne-Leicht";
+      
+      margin-left: 10px;
+    }
+     .event-info .date-list {
+      color: #5A2E2E;
+      font-family: "Sohne-Leicht";
+      font-size: 10px;
+      margin-left: 10px;
+    }
+    
+    .close-info {
+      position: absolute;
+      top: 5px;
+      right: 8px;
+      background: none;
+      border: none;
+      font-size: 15px;
+      cursor: pointer;
+      color: #5A2E2E;
+    }
+  </style>
+</head>
+<body>
+ <header>
+    <div class="logo-container">
+      <div class="logo" id="logo">
+        <img src="images/logo marron.png" alt="DJ Yabi Logo" class="logo-image">
+      </div>
+    </div>
+    <nav class="bottom-menu">
+      <div class="menu-left">
+        <a href="index.html">About</a>
+        <a href="MyMixes.html">Mixes</a>
+        <a href="videos.html">Videos</a>
+      </div>
+      <div class="menu-right">
+        <a href="photos.html">Photos</a>
+        <a href="events.html">Events</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </nav>
+  </header>
+  <main id="mainContent">
+  <div class="header-Dublin">
+    <h1 class="city-title">Dublin Events</h1>
+  </div>
+  
+  <div class="map-container-dublin">
+    <img src="images/dublin-map.png" alt="Vintage World Map" class="dublin-map">
+    
+    <!-- Event pins - adjust positions as needed -->
+    <div class="event-pin" style="top: 51%; left: 27%;" onclick="showEventInfo(event, 'venue1')">
+      <div class="event-label">Fidelity Bar & Studio</div>
+      <div class="pin-dot"></div>
+    </div>
+    
+    <div class="event-pin" style="top: 60%; left: 28.5%;" onclick="showEventInfo(event, 'venue2')">
+      <div class="event-label">Lucky's Bar</div>
+      <div class="pin-dot"></div>
+    </div>
+    
+
+    
+    <!-- Event info popups -->
+    <div id="venue1" class="event-info">
+      <button class="close-info" onclick="hideEventInfo('venue1')">×</button>
+      <h3>Fidelity Bar & Studio</h3>
+      <p><strong>Shows:</strong></p>
+      <div class="date-list">
+        • <strong>Sept. 25th, 2024:</strong> Afro-Disco, Afro-Funk, Tropical Funk<br>
+        • <strong>Nov. 15th, 2024:</strong> Afro-House, Afro-Latin, Tropical House<br>
+        • <strong>Dec. 5th, 2024:</strong> Reggae, Dub, Dancehall, Afrofusion<br>
+        • <strong>June 21st, 2025:</strong> Dub, Dancehall, Bass, Drum & Bass<br>
+        • <strong>Aug. 2nd, 2025:</strong> Reggaeton, Dancehall, Baile Funk
+      </div>
+      <div class="upcoming-shows">
+    <p><strong>Upcoming Shows:</strong></p>
+    <div class="date-list">
+      • <strong>June. 21st, 2025:</strong> TBD <br>
+    </div>
+  </div>
+    </div>
+    
+    <div id="venue2" class="event-info">
+      <button class="close-info" onclick="hideEventInfo('venue2')">×</button>
+      <h3>Lucky's</h3>
+      <p><strong>Shows:</strong></p>
+      <div class="date-list">
+        • <strong>Feb 8th, 2025:</strong> Reggae, Dub, Dancehall, Reggaeton<br>
+        • <strong>June 20th, 2025:</strong> Dancehall, Old School Hip-Hop, Bass, Drum & Bass<br>
+        • <strong>Aug. 1st, 2025:</strong> Dancehall, Baile Funk, Afrobeat, Latin House
+      </div>
+      <div class="upcoming-shows">
+    <p><strong>Upcoming Shows:</strong></p>
+    <div class="date-list">
+      • <strong>June. 21st, 2025:</strong> TBD <br>
+    </div>
+  </div>
+    </div>  
+
+  </div>
+   </main>
+  <div id="teaserOverlay">
+    <video loop id="teaserVideo" playsinline muted>
+      <source src="videos/teaser.mp4" type="video/mp4" />
+    </video>
+  </div>
+  
+  <script src="overlay-video.js" defer></script>
+  
+  <script>
+    function showEventInfo(event, venueId) {
+      event.stopPropagation();
+      
+      // Hide all other popups
+      const allPopups = document.querySelectorAll('.event-info');
+      allPopups.forEach(popup => {
+        if (popup.id !== venueId) {
+          popup.style.display = 'none';
+        }
+      });
+      
+      const popup = document.getElementById(venueId);
+      const rect = event.target.getBoundingClientRect();
+      const container = document.querySelector('.map-container-dublin').getBoundingClientRect();
+      
+      popup.style.display = 'block';
+      popup.style.left = (rect.left - container.left + 20) + 'px';
+      popup.style.top = (rect.top - container.top - 120) + 'px';
+    }
+    
+    function hideEventInfo(venueId) {
+      document.getElementById(venueId).style.display = 'none';
+    }
+    
+    // Close popups when clicking outside
+    document.addEventListener('click', function(event) {
+      if (!event.target.closest('.event-pin') && !event.target.closest('.event-info')) {
+        const allPopups = document.querySelectorAll('.event-info');
+        allPopups.forEach(popup => popup.style.display = 'none');
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DJ Yabi</title>
+  
+  <link rel = "stylesheet" href = "style2.css">
+</head>
+<body style="background-color: #FFFDFA;">
+
+  <header>
+    <div class="logo-container">
+      <div class="logo" id="logo">
+        <img src="images/logo marron.png" alt="DJ Yabi Logo" class="logo-image">
+      </div>
+    </div>
+    <nav class="bottom-menu">
+      <div class="menu-left">
+        <a href="index.html">About</a>
+        <a href="MyMixes.html">Mixes</a>
+        <a href="videos.html">Videos</a>
+      </div>
+      <div class="menu-right">
+        <a href="photos.html">Photos</a>
+        <a href="events.html">Events</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </nav>
+  </header>
+  <main id="mainContent">
+  <section class="hero hero-map">
+    <div class="map-container">
+      
+      <img src="images/worldmap-best.png" alt="Vintage World Map" class="map-image">
+  
+       <!-- Pin for Montreal -->
+  <a href="event-montreal.html" class="map-pin" style="top: 41%; left: 30%;">
+    <div class="city-label">Montreal</div>
+    <div class="pin-dot"></div>
+    
+  </a>
+
+  <!-- Pin for Dublin -->
+  <a href="event-dublin.html" class="map-pin" style="top: 37.5%; left: 48%;">
+    <div class="city-label">Dublin</div>
+    <div class="pin-dot"></div>
+  </a> 
+    <!-- Pin for Paris -->
+  <a href="event-paris.html" class="map-pin" style="top: 39.8%; left: 48.4%;">
+    <div class="city-label label-right">Paris</div>
+    <div class="pin-dot"></div>
+  </a> 
+   
+  </div>
+        
+  </section>
+  </main>
+  <div id="teaserOverlay">
+    <video loop id="teaserVideo" playsinline muted>
+      <source src="videos/teaser.mp4" type="video/mp4" />
+    </video>
+  </div>
+  
+  <script src="overlay-video.js" defer></script>
+</body>
+</html>

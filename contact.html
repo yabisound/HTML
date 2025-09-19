@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact | DJ Yabi</title>
+  <script src="overlay-video.js" defer></script>
+  <link rel="stylesheet" href="style2.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+ <style>
+nav.bottom-menu .menu-right a {
+  color: #FAF9F6 ;
+}
+nav.bottom-menu .menu-right a:hover {
+  color: #D38F0A;
+}
+
+</style>
+</head>
+<body>
+  <header>
+    <div class="logo-container">
+      <div class="logo" id="logo">
+        <img src="images/logo marron.png" alt="DJ Yabi Logo" class="logo-image">
+      </div>
+    </div>
+    <nav class="bottom-menu">
+      <div class="menu-left">
+        <a href="index.html">About</a>
+        <a href="MyMixes.html">Mixes</a>
+        <a href="videos.html">Videos</a>
+      </div>
+      <div class="menu-right">
+        <a href="photos.html">Photos</a>
+        <a href="events.html">Events</a>
+        <a href="contact.html" class="active">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="mainContent">
+    <!-- Hero Section -->
+    <section class="contact-hero">
+      <h1>GET IN TOUCH</h1>
+      <p>For DJ inquiries, bookings, collaborations, or any questions about my music, I'm here to connect. Let's create something amazing together.</p>
+    </section>
+
+    <!-- Main Contact Section -->
+    <section class="contact-main">
+      <!-- Left Column - Contact Form -->
+     <div class="contact-form-section">
+        <h2>Send a Message</h2>
+        
+
+        
+        <form class="contact-form" name="contact" method="POST" data-netlify="true" data-netlify-recaptcha="true" action="/thank-you.html">
+          <input type="hidden" name="form-name" value="contact" />
+          
+          <div class="form-group">
+            <input type="text" name="name" placeholder="Your Name" required>
+          </div>
+          
+          <div class="form-group">
+            <input type="email" name="email" placeholder="Your Email" required>
+          </div>
+          
+          <div class="form-group">
+            <input type="text" name="subject" placeholder="Subject" required>
+          </div>
+          
+          <div class="form-group">
+            <textarea name="message" placeholder="Your Message" required></textarea>
+          </div>
+          
+          <div data-netlify-recaptcha="true"></div>
+          
+          <button type="submit" class="submit-btn">Send Message</button>
+        </form>
+      </div>
+      
+      <!-- Right Column - Contact Info -->
+      <div class="contact-info-section">
+        <h2>Let's Connect</h2>
+        
+        <div class="contact-detail">
+          <h3>Email</h3>
+          <p><a href="mailto:yabisound@gmail.com">yabisound@gmail.com</a></p>
+        </div>
+        
+        <div class="contact-detail">
+          <h3>Booking Inquiries</h3>
+          <p>Available for private events, clubs, festivals, and radio shows. Let's discuss your vision and create an unforgettable musical experience.</p>
+        </div>
+        
+        <div class="contact-detail">
+          <h3>Follow My Journey</h3>
+          <p>Stay updated with my latest mixes, upcoming shows, and behind-the-scenes content.</p>
+          
+          <div class="social-links">
+            <a href="https://www.instagram.com/gaby.symr/" target="_blank" aria-label="Instagram" class="social-icon">
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a href="https://www.tiktok.com/@yabi_muzik" target="_blank" aria-label="TikTok" class="social-icon">
+              <i class="fa-brands fa-tiktok"></i>
+            </a>
+            <a href="http://www.youtube.com/@yabi.sounds" target="_blank" aria-label="YouTube" class="social-icon">
+              <i class="fa-brands fa-youtube"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- Music Player Section -->
+        <div class="music-player-section">
+          <h3>Latest Release</h3>
+          <p>Check out my newest mix while you're here</p>
+          <button class="listen-btn" onclick="window.open('MyMixes.html', '_self')">Listen Now</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="teaserOverlay">
+    <video loop id="teaserVideo" playsinline muted>
+      <source src="videos/teaser.mp4" type="video/mp4" />
+    </video>
+  </div>
+
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Get form data
+      const formData = new FormData(this);
+      const name = formData.get('name');
+      const email = formData.get('email');
+      const subject = formData.get('subject');
+      const message = formData.get('message');
+      
+      // Create mailto link
+      const mailtoLink = `mailto:yabisound@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`;
+      
+      // Open email client
+      window.location.href = mailtoLink;
+      
+      // Show confirmation
+      alert('Opening your email client... If it doesn\'t open automatically, please email me directly at yabisound@gmail.com');
+      
+      // Reset form
+      this.reset();
+    });
+  </script>
+</body>
+</html>

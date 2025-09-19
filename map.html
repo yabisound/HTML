@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DJ Yabi</title>
+  <link rel="stylesheet" href="style2.css">
+  <link href="https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.css" rel="stylesheet" />
+  <script src="overlay-video.js" defer></script>
+  <style>
+    #map {
+      width: 90%;
+      height: 90vh;
+      margin: auto;
+      position: relative;
+      border: 2px solid #ccc;
+    }
+    .marker {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background-color: brown;
+      border: 2px solid white;
+    }
+    .polaroid {
+      position: absolute;
+      transform: translate(-50%, -100%);
+      border: 3px solid #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      background: #fff;
+      padding: 4px;
+      width: 60px;
+    }
+    .polaroid img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo-container">
+      <div class="logo" id="logo">
+        <div class="dj">DJ</div>
+        <div class="yabi">Yabi</div>
+      </div>
+    </div>
+    <nav class="bottom-menu">
+    <div class="menu-left">
+      <a href="index.html">About</a>
+      <a href="MyMixes.html">Mixes</a>
+      <a href="videos.html">Videos</a>
+    </div>
+    <div class="menu-right">
+      <a href="photos.html">Photos</a>
+      <a href="events.html">Events</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    </nav>
+  </header>
+  <main id="mainContent">
+    <section class="hero">
+      <div id="map"></div>
+    </section>
+  </main>
+  <div id="teaserOverlay">
+    <video autoplay muted loop id="teaserVideo">
+      <source src="images/IMG_2094.mov" type="video/mp4" />
+    </video>
+  </div>
+
+  <script src="https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.js"></script>
+  <script>
+    const map = new maplibregl.Map({
+        container: 'map',
+  style: 'https://api.maptiler.com/maps/0196da8d-e986-78ee-9b00-564d745cefc8/style.json?key=iMWQcxMK6c84M8zZkCJi',
+  center: [-30, 20],
+  zoom: 2,
+  minZoom: 2,
+  maxZoom: 8,
+  renderWorldCopies: false,
+  maxBounds: [
+    [-180, -85], // Southwest coordinates
+    [180, 85]    // Northeast coordinates
+  ]
+    });
+
+    const pins = [
+      { lng: -73.5673, lat: 45.5017, img: 'images/P1020072.JPG' }, // Montreal
+      { lng: -6.2603, lat: 53.3498, img: 'images/P1020073.JPG' }   // Dublin
+    ];
+
+    pins.forEach(pin => {
+      const el = document.createElement('div');
+      el.className = 'marker';
+
+      new maplibregl.Marker(el)
+        .setLngLat([pin.lng, pin.lat])
+        .addTo(map);
+
+      const polaroid = document.createElement('div');
+      polaroid.className = 'polaroid';
+      polaroid.innerHTML = `<img src="${pin.img}" alt="">`;
+
+      new maplibregl.Popup({ offset: 25 })
+        .setDOMContent(polaroid)
+        .setLngLat([pin.lng, pin.lat])
+        .addTo(map);
+    });
+  </script>
+</body>
+</html>

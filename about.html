@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DJ Yabi</title>
+  <script src="overlay-video.js" defer></script>
+  <link rel="stylesheet" href="style2.css">
+  <style>
+
+    @media screen and (max-width: 768px) {
+      .about-section {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo-container">
+      <div class="logo" id="logo">
+        <img src="images/logo marron.png" alt="DJ Yabi Logo" class="logo-image">
+      </div>
+  </div>
+  <nav class="bottom-menu">
+    <div class="menu-left">
+      <a href="index.html">About</a>
+      <a href="MyMixes.html">Mixes</a>
+      <a href="videos.html">Videos</a>
+    </div>
+    <div class="menu-right">
+      <a href="photos.html">Photos</a>
+      <a href="events.html">Events</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </nav>
+  </header>
+
+  <main id="mainContent">
+    
+
+    <section class="about-section">
+      <div class="about-image">
+        <img src="images/P1020072.JPG" alt="DJ Yabi performing" />
+      </div>
+      <div class="about-text">
+        <h2>About</h2>
+        <p>
+          DJ Yabi is a French DJ with a passport full of stamps and a USB full of global sounds. From Paris to Boston, Montreal to Dublin, she picks up vibes everywhere she goes.
+        </p>
+        <p>
+          She draws especially from the traditional sounds of Africa, the Middle East, the Caribbean, and Latin America. One thing’s for sure — she never ends a set without playing Bob Marley.
+        </p>
+        
+      </div>
+    </section>
+
+  </main>
+
+  <div id="teaserOverlay">
+    <video loop id="teaserVideo" playsinline muted>
+      <source src="videos/teaser.mp4" type="video/mp4" />
+    </video>
+  </div>
+  
+</body>
+</html>

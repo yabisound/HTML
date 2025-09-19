@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DJ Yabi - Dublin Events</title>
+  <link rel = "stylesheet" href = "style2.css">
+  <style>
+     @font-face {
+        font-family: "fett";
+        src: url(fonts/TestSöhneMono-Fett.otf) format("truetype");
+        font-weight: normal;
+        font-style: normal;
+        
+    }
+
+    @font-face {
+      font-family: "Sohne-Leicht";
+      src: url(fonts/TestSöhneMono-Leicht.otf) format("opentype");
+      font-weight: normal;
+      font-style: normal;
+    }
+     /* Style for bold text in event info */
+    .event-info strong {
+        font-weight: bold;
+        font-family: "fett", sans-serif;
+    }
+  
+    .header-Dublin {
+      text-align: center;
+      padding: 20px;
+      background-color: #FAF9F6;
+      font-family: "fett";
+      font-size: 1.1rem;
+    }
+    
+    .city-title {
+      color: #5A2E2E;
+      font-size: 1.5em;
+      margin: 20px 0;
+      
+    }
+    
+    .map-container-dublin {
+      position: relative;
+      width: 90%;
+      max-width: 1000px;
+      height: 70vh;
+      margin: 0 auto;
+      background: #FFFDFA;
+      border: 1.5px solid #5A2E2E;
+      
+    }
+    
+    .dublin-map {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Ensures image covers the container */
+        display: block;
+    }
+    
+    .event-pin {
+      position: absolute;
+      cursor: pointer;
+      z-index: 10;
+      transform: translate(-50%, -100%);
+    }
+    
+    .event-pin .pin-dot {
+      width: 10px;
+      height: 10px;
+      background: #5A2E2E;
+      border-radius: 50%;
+      border: 1px solid #FAF9F6;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+    
+    .event-pin .event-label {
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #5A2E2E;
+      color: #FAF9F6;
+      padding: 4px 8px;
+      border-radius: 2px;
+      font-size: 10px;
+      white-space: nowrap;
+      margin-bottom: 5px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    
+    .event-pin:hover .event-label {
+      opacity: 1;
+    }
+    
+    .event-info {
+      position: absolute;
+      background: rgba(255, 253, 250, 0.95);
+      border: 2px solid #5A2E2E;
+      border-radius: 8px;
+      padding: 10px;
+      width: 220px;
+      
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      z-index: 20;
+      display: none;
+    }
+    
+    .event-info h3 {
+      color: #D38F0A;
+      font-size: 14px;
+      margin-left: 10px;
+    }
+    
+    .event-info p {
+      color: #5A2E2E;
+      font-size: 12px;
+      font-family: "Sohne-Leicht";
+      
+      margin-left: 10px;
+    }
+     .event-info .date-list {
+      color: #5A2E2E;
+      font-family: "Sohne-Leicht";
+      font-size: 10px;
+      margin-left: 10px;
+    }
+    
+    .close-info {
+      position: absolute;
+      top: 5px;
+      right: 8px;
+      background: none;
+      border: none;
+      font-size: 15px;
+      cursor: pointer;
+      color: #5A2E2E;
+    }
+  </style>
+</head>
+<body>
+ <header>
+    <div class="logo-container">
+      <div class="logo" id="logo">
+        <img src="images/logo marron.png" alt="DJ Yabi Logo" class="logo-image">
+      </div>
+    </div>
+    <nav class="bottom-menu">
+      <div class="menu-left">
+      <a href="about.html">About</a>
+      <a href="MyMixes.html">Mixes</a>
+      <a href="videos.html">Videos</a>
+    </div>
+    <div class="menu-right">
+      <a href="index.html">Photos</a>
+      <a href="events.html">Events</a>
+      <a href="contact.html">Contact</a>
+      </div>
+    </nav>
+  </header>
+  <main id="mainContent">
+  <div class="header-Dublin">
+    <h1 class="city-title">Paris Events</h1>
+  </div>
+  
+  <div class="map-container-dublin">
+    <img src="images/map-paris-dj.png" alt="Vintage World Map" class="dublin-map">
+    
+    <!-- Event pins - adjust positions as needed -->
+    <div class="event-pin paris-pin" style="top: 8%; left: 90%;" onclick="showEventInfo(event, 'venue1')">
+      <div class="event-label">Metaxu Concert Boat </div>
+      <div class="pin-dot"></div>
+    </div>
+    
+    <div class="event-pin paris-pin" style="top: 54.5%; left: 84.5%;" onclick="showEventInfo(event, 'venue2')">
+      <div class="event-label">Le Gambetta Club</div>
+      <div class="pin-dot"></div>
+    </div>
+    
+
+    
+   <div id="venue1" class="event-info">
+  <button class="close-info" onclick="hideEventInfo('venue1')">×</button>
+  <h3>Chapter Two Boat Party</h3>
+  <p><strong>July 8th, 2025</strong></p>
+  <p>Played at Chapter Two's Boat Party — a French world music label (home to Winston McAnuff, Tiken Jah Fakoly, Zoufris Maracas, Féfé, and more) where I also worked as an A&R intern. My set blended traditional Afro-Cuban, Latin, and reggae selections, alongside DJ Godot Lab.</p>
+</div>
+    
+    <div id="venue2" class="event-info">
+      <button class="close-info" onclick="hideEventInfo('venue2')">×</button>
+      <h3>Le Gambetta Club</h3>
+      <p><strong>July 19th, 2025</strong></p>
+      <p>Performed a B2B set with DJ Godot Lab at Le Gambetta Club in Paris, exploring Afro-tech, Latin-tech, and Caribbean-inspired electronic sounds</p>
+    </div>  
+
+  </div>
+   </main>
+  <div id="teaserOverlay">
+    <video loop id="teaserVideo" playsinline muted>
+      <source src="videos/teaser.mp4" type="video/mp4" />
+    </video>
+  </div>
+  
+  <script src="overlay-video.js" defer></script>
+  
+  <script>
+    function showEventInfo(event, venueId) {
+      event.stopPropagation();
+      
+      // Hide all other popups
+      const allPopups = document.querySelectorAll('.event-info');
+      allPopups.forEach(popup => {
+        if (popup.id !== venueId) {
+          popup.style.display = 'none';
+        }
+      });
+      
+      const popup = document.getElementById(venueId);
+      const rect = event.target.getBoundingClientRect();
+      const container = document.querySelector('.map-container-dublin').getBoundingClientRect();
+      
+      popup.style.display = 'block';
+      popup.style.left = (rect.left - container.left + 20) + 'px';
+      popup.style.top = (rect.top - container.top - 120) + 'px';
+    }
+    
+    function hideEventInfo(venueId) {
+      document.getElementById(venueId).style.display = 'none';
+    }
+    
+    // Close popups when clicking outside
+    document.addEventListener('click', function(event) {
+      if (!event.target.closest('.event-pin') && !event.target.closest('.event-info')) {
+        const allPopups = document.querySelectorAll('.event-info');
+        allPopups.forEach(popup => popup.style.display = 'none');
+      }
+    });
+  </script>
+</body>
+</html>
