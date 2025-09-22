@@ -24,18 +24,18 @@
       <img src="images/worldmap-best.png" alt="Vintage World Map" class="map-image">
   
        <!-- Pin for Montreal -->
-  <a href="event-montreal.html" class="map-pin" data-original-top="61" data-original-left="50" style="top: 61%; left: 50%;">
+  <a href="event-montreal.html" class="map-pin" data-original-top="41.8" data-original-left="27.3" style="top: 41.8%; left: 27.3%;">
     <div class="city-label">Montreal</div>
     <div class="pin-dot"></div>
   </a>
 
   <!-- Pin for Dublin -->
-  <a href="event-dublin.html" class="map-pin" data-original-top="57.5" data-original-left="68" style="top: 57.5%; left: 68%;">
+  <a href="event-dublin.html" class="map-pin" data-original-top="37" data-original-left="46" style="top: 37%; left: 46%;">
     <div class="city-label">Dublin</div>
     <div class="pin-dot"></div>
   </a> 
     <!-- Pin for Paris -->
-  <a href="event-paris.html" class="map-pin" data-original-top="59.8" data-original-left="68.4" style="top: 59.8%; left: 68.4%;">
+  <a href="event-paris.html" class="map-pin" data-original-top="40" data-original-left="48.2" style="top: 4%0; left: 48.2%;">
     <div class="city-label label-right">Paris</div>
     <div class="pin-dot"></div>
   </a> 
@@ -64,33 +64,91 @@
   
   <script src="overlay-video.js" defer></script>
   <script>
-    // Proportional pin scaling for map
-    function scaleMapPins() {
-      const mapContainer = document.querySelector('.map-container');
-      const pins = document.querySelectorAll('.map-pin');
-      
-      if (!mapContainer) return;
-      
-      const originalWidth = 1200;
-      const originalHeight = 800;
-      
-      const currentWidth = mapContainer.offsetWidth;
-      const currentHeight = mapContainer.offsetHeight;
-      
-      const scaleX = currentWidth / originalWidth;
-      const scaleY = currentHeight / originalHeight;
-      
-      pins.forEach(pin => {
-        const originalTop = parseFloat(pin.getAttribute('data-original-top'));
-        const originalLeft = parseFloat(pin.getAttribute('data-original-left'));
-        
-        pin.style.top = (originalTop * scaleY) + '%';
-        pin.style.left = (originalLeft * scaleX) + '%';
-      });
-    }
+// Fixed proportional pin scaling for map
+function scaleMapPins() {
+  const mapContainer = document.querySelector('.map-container');
+  const mapImage = document.querySelector('.map-image');
+  const pins = document.querySelectorAll('.map-pin');
+  
+  if (!mapContainer || !mapImage) return;
+  
+  // Wait for image to load completely
+  if (!mapImage.complete) {
+    mapImage.addEventListener('load', scaleMapPins);
+    return;
+  }
+  
+  // Get container dimensions
+  const containerRect = mapContainer.getBoundingClientRect();
+  
+  // Get the natural (original) image dimensions
+  const naturalWidth = mapImage.naturalWidth;
+  const naturalHeight = mapImage.naturalHeight;
+  
+  // Get the displayed image dimensions (after object-fit: contain)
+  const imageAspectRatio = naturalWidth / naturalHeight;
+  const containerAspectRatio = containerRect.width / containerRect.height;
+  
+  let displayedWidth, displayedHeight;
+  let offsetX = 0, offsetY = 0;
+  
+  if (imageAspectRatio > containerAspectRatio) {
+    // Image is wider - constrained by container width
+    displayedWidth = containerRect.width;
+    displayedHeight = containerRect.width / imageAspectRatio;
+    offsetY = (containerRect.height - displayedHeight) / 2;
+  } else {
+    // Image is taller - constrained by container height
+    displayedHeight = containerRect.height;
+    displayedWidth = containerRect.height * imageAspectRatio;
+    offsetX = (containerRect.width - displayedWidth) / 2;
+  }
+  
+  pins.forEach(pin => {
+    const originalTop = parseFloat(pin.getAttribute('data-original-top'));
+    const originalLeft = parseFloat(pin.getAttribute('data-original-left'));
+    
+    // Convert original percentages to actual positions within the displayed image
+    const actualLeft = (originalLeft / 100) * displayedWidth + offsetX;
+    const actualTop = (originalTop / 100) * displayedHeight + offsetY;
+    
+    // Convert back to percentages relative to the container
+    const newLeft = (actualLeft / containerRect.width) * 100;
+    const newTop = (actualTop / containerRect.height) * 100;
+    
+    pin.style.left = newLeft + '%';
+    pin.style.top = newTop + '%';
+  });
+}
 
-    window.addEventListener('load', scaleMapPins);
-    window.addEventListener('resize', scaleMapPins);
-  </script>
+// Debounce function to limit how often scaling happens during resize
+function debounce(func, wait) {
+  let timeout;
+  return function executedFunction(...args) {
+    const later = () => {
+      clearTimeout(timeout);
+      func(...args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+}
+
+// Use debounced version for resize events
+const debouncedScale = debounce(scaleMapPins, 100);
+
+// Initialize scaling
+window.addEventListener('load', () => {
+  // Small delay to ensure everything is rendered
+  setTimeout(scaleMapPins, 100);
+});
+
+window.addEventListener('resize', debouncedScale);
+
+// Also scale when orientation changes on mobile
+window.addEventListener('orientationchange', () => {
+  setTimeout(scaleMapPins, 300);
+});
+</script>
 </body>
 </html>

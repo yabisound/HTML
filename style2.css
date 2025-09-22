@@ -949,8 +949,12 @@ header {
   margin: 0 auto;
   overflow: hidden;
   background-color: #FFFDFA;
-  max-height: calc(100vh - 120px); /* Leave space for logo and menu */
+  max-height: calc(100vh - 120px);
+  /* Add minimum constraints */
+  min-width: 300px;
+  max-width: 1200px;
 }
+
 
 .map-container::before {
   content: '';
@@ -1055,6 +1059,8 @@ header {
 
 /* Constrain video container height on mobile */
 @media screen and (max-width: 900px) {
+
+  /*videos.html*/
   .video-wrapper {
     max-height: 500px;
     margin: 0 auto 2rem auto;
@@ -1070,6 +1076,8 @@ header {
   .youtube-video {
     padding-bottom: 45%; /* Make videos shorter on mobile */
   }
+
+  /*mymixes.html*/
   .mix-container {
     max-height: 600px;
     margin: 0 auto 2rem auto;
@@ -1086,6 +1094,8 @@ header {
   .mix-container iframe {
     height: 250px !important; /* Make embedded players shorter */
   }
+
+  /*contact.html*/
   /* Stop forcing full viewport height (this causes overlap with fixed top/bottom elements) */
   .contact-main {
     min-height: auto !important;   /* stop forcing 100vh */
@@ -1113,9 +1123,33 @@ header {
     height: 80px;
     max-height: 80px;
   }
+
+  /*event.html */
+  .hero.hero-map {
+    padding: 4rem 2rem 6rem 2rem;
+  }
+  
+  .map-container {
+    width: 90%;
+    max-height: calc(100vh - 160px);
+    min-height: 300px;
+  }
+  .map-container-city {
+        width: 90% !important;
+        aspect-ratio: 1600/852 !important;
+        height: auto !important;
+        max-height: calc(100vh - 160px) !important;
+        min-height: 300px !important;
+  }
+  
+  .city-label {
+    font-size: 9px;
+    padding: 5px 10px;
+  }
 }
 
 @media screen and (max-width: 480px) {
+  /*video.html*/
   .video-wrapper {
     max-height: 450px;
     margin: 0 auto 1.5rem auto;
@@ -1139,6 +1173,8 @@ header {
     font-size: 0.65rem;
     line-height: 1.3;
   }
+
+  /*mymixes.html*/
   .mix-container {
     max-height: 550px;
     margin: 0 auto 1.5rem auto;
@@ -1162,6 +1198,8 @@ header {
     font-size: 0.65rem;
     line-height: 1.3;
   }
+
+  /*contact.html*/
   .contact-main {
     padding: 8rem 1rem 8rem 1rem;  /* even more space on very small screens */
   }
@@ -1184,4 +1222,36 @@ header {
   .submit-btn {
     font-size: 0.85rem;
   }
+
+  /*event.html*/
+  .hero.hero-map {
+    padding: 6rem 1rem 8rem 1rem;
+  }
+  
+  .map-container {
+    width: 95%;
+    max-height: calc(100vh - 180px);
+    min-height: 250px;
+  }
+  
+  .map-container-city {
+      aspect-ratio: auto;  /* turn off fixed ratio */
+    height: 70vh;        /* take 70% of screen height */
+    max-height: none;    /* remove restrictions */
+    min-height: 250px;   /* keep a safe minimum */
+  }
+  .city-label {
+    font-size: 10px;
+    padding: 6px 12px;
+    border-width: 1px;
+  }
+  
+  .city-label.label-right {
+    margin-left: 12px;
+  }
+  
+  .city-label.label-left {
+    margin-right: 12px;
+  }
 }
+
