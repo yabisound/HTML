@@ -15,19 +15,8 @@
         <img src="images/logo marron.png" alt="DJ Yabi Logo" class="logo-image">
       </div>
     </div>
-    <nav class="bottom-menu">
-      <div class="menu-left">
-      <a href="about.html">About</a>
-      <a href="MyMixes.html">Mixes</a>
-      <a href="videos.html">Videos</a>
-    </div>
-    <div class="menu-right">
-      <a href="index.html">Photos</a>
-      <a href="events.html">Events</a>
-      <a href="contact.html">Contact</a>
-      </div>
-    </nav>
   </header>
+  
   <main id="mainContent">
   <section class="hero hero-map">
     <div class="map-container">
@@ -35,19 +24,18 @@
       <img src="images/worldmap-best.png" alt="Vintage World Map" class="map-image">
   
        <!-- Pin for Montreal -->
-  <a href="event-montreal.html" class="map-pin" style="top: 41%; left: 30%;">
+  <a href="event-montreal.html" class="map-pin" data-original-top="61" data-original-left="50" style="top: 61%; left: 50%;">
     <div class="city-label">Montreal</div>
     <div class="pin-dot"></div>
-    
   </a>
 
   <!-- Pin for Dublin -->
-  <a href="event-dublin.html" class="map-pin" style="top: 37.5%; left: 48%;">
+  <a href="event-dublin.html" class="map-pin" data-original-top="57.5" data-original-left="68" style="top: 57.5%; left: 68%;">
     <div class="city-label">Dublin</div>
     <div class="pin-dot"></div>
   </a> 
     <!-- Pin for Paris -->
-  <a href="event-paris.html" class="map-pin" style="top: 39.8%; left: 48.4%;">
+  <a href="event-paris.html" class="map-pin" data-original-top="59.8" data-original-left="68.4" style="top: 59.8%; left: 68.4%;">
     <div class="city-label label-right">Paris</div>
     <div class="pin-dot"></div>
   </a> 
@@ -61,7 +49,48 @@
       <source src="videos/teaser.mp4" type="video/mp4" />
     </video>
   </div>
+  <nav class="bottom-menu">
+      <div class="menu-left">
+      <a href="about.html">About</a>
+      <a href="MyMixes.html">Mixes</a>
+      <a href="videos.html">Videos</a>
+    </div>
+    <div class="menu-right">
+      <a href="index.html">Photos</a>
+      <a href="events.html">Events</a>
+      <a href="contact.html">Contact</a>
+      </div>
+    </nav>
   
   <script src="overlay-video.js" defer></script>
+  <script>
+    // Proportional pin scaling for map
+    function scaleMapPins() {
+      const mapContainer = document.querySelector('.map-container');
+      const pins = document.querySelectorAll('.map-pin');
+      
+      if (!mapContainer) return;
+      
+      const originalWidth = 1200;
+      const originalHeight = 800;
+      
+      const currentWidth = mapContainer.offsetWidth;
+      const currentHeight = mapContainer.offsetHeight;
+      
+      const scaleX = currentWidth / originalWidth;
+      const scaleY = currentHeight / originalHeight;
+      
+      pins.forEach(pin => {
+        const originalTop = parseFloat(pin.getAttribute('data-original-top'));
+        const originalLeft = parseFloat(pin.getAttribute('data-original-left'));
+        
+        pin.style.top = (originalTop * scaleY) + '%';
+        pin.style.left = (originalLeft * scaleX) + '%';
+      });
+    }
+
+    window.addEventListener('load', scaleMapPins);
+    window.addEventListener('resize', scaleMapPins);
+  </script>
 </body>
 </html>

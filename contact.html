@@ -16,6 +16,19 @@ nav.bottom-menu .menu-right a:hover {
   color: #D38F0A;
 }
 
+/* Orange bottom menu styling for mobile screens - CONTACT PAGE ONLY */
+@media screen and (max-width: 900px) {
+  .bottom-menu a {
+    color: #D38F0A !important;
+  }
+  
+  .bottom-menu a:hover {
+    color: #FAF9F6 !important;
+    text-shadow: 0 0 8px #D38F0A, 0 0 12px #D38F0A, 0 0 16px #D38F0A;
+    transition: all 0.3s ease;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -25,18 +38,6 @@ nav.bottom-menu .menu-right a:hover {
         <img src="images/logo marron.png" alt="DJ Yabi Logo" class="logo-image">
       </div>
     </div>
-    <nav class="bottom-menu">
-      <div class="menu-left">
-        <a href="about.html">About</a>
-        <a href="MyMixes.html">Mixes</a>
-        <a href="videos.html">Videos</a>
-      </div>
-      <div class="menu-right">
-        <a href="index.html">Photos</a>
-        <a href="events.html">Events</a>
-        <a href="contact.html" class="active">Contact</a>
-      </div>
-    </nav>
   </header>
 
   <main id="mainContent">
@@ -125,7 +126,18 @@ nav.bottom-menu .menu-right a:hover {
       <source src="videos/teaser.mp4" type="video/mp4" />
     </video>
   </div>
-
+<nav class="bottom-menu">
+      <div class="menu-left">
+        <a href="about.html">About</a>
+        <a href="MyMixes.html">Mixes</a>
+        <a href="videos.html">Videos</a>
+      </div>
+      <div class="menu-right">
+        <a href="index.html">Photos</a>
+        <a href="events.html">Events</a>
+        <a href="contact.html" class="active">Contact</a>
+      </div>
+    </nav>
   <script>
     document.getElementById('contactForm').addEventListener('submit', function(e) {
       e.preventDefault();

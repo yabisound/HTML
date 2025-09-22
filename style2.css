@@ -210,16 +210,31 @@ header {
 }
 
 /*videos.html*/
+.youtube-video {
+  width: 100%;
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+}
 
+.youtube-video iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
 /* New video grid container for side-by-side layout */
 .video-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 2rem;
   width: 100%;
   max-width: 1200px;
   margin: 2rem auto 0 auto;
-  align-items: stretch; /* Make all video containers the same height */
+  align-items: stretch;
 }
 
 .video-wrapper {
@@ -933,10 +948,10 @@ header {
   aspect-ratio: 3/2;
   margin: 0 auto;
   overflow: hidden;
- 
   background-color: #FFFDFA;
-  height: calc(100vh - 10px - 10px);
+  max-height: calc(100vh - 120px); /* Leave space for logo and menu */
 }
+
 .map-container::before {
   content: '';
   position: absolute;
@@ -945,10 +960,9 @@ header {
   right: 0;
   bottom: 0;
   box-shadow: -10px 0 20px -5px #FAF9F6, 10px 0 20px -5px #FAF9F6;
-  pointer-events: none; /* Allow clicking through */
-  z-index: 2; /* Above image but below pins */
+  pointer-events: none;
+  z-index: 2;
 }
-
 
 .map-image {
   width: 100%;
@@ -956,15 +970,12 @@ header {
   object-fit: contain;
   display: block;
   opacity: 0.95;
-  
-  /*mix-blend-mode: multiply;*/
-  /*filter: sepia(0.3) contrast(1.1);  vintage feel */
 }
 
 .map-pin {
   position: absolute;
-  top:0;
-  left:0;
+  top: 0;
+  left: 0;
   transform: translate(-50%, -100%);
   cursor: pointer;
   text-decoration: none;
@@ -1042,34 +1053,135 @@ header {
   text-align: center;
 }
 
-/* Mobile responsive - videos stack on smaller screens */
+/* Constrain video container height on mobile */
 @media screen and (max-width: 900px) {
-  .video-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+  .video-wrapper {
+    max-height: 500px;
+    margin: 0 auto 2rem auto;
   }
   
-  .video-wrapper {
+  .video-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin: 2rem auto;
+    max-width: 90vw;
+  }
+  
+  .youtube-video {
+    padding-bottom: 45%; /* Make videos shorter on mobile */
+  }
+  .mix-container {
+    max-height: 600px;
+    margin: 0 auto 2rem auto;
+    overflow: hidden;
+  }
+  
+  .mix-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin: 2rem auto;
+    max-width: 90vw;
+  }
+  
+  .mix-container iframe {
+    height: 250px !important; /* Make embedded players shorter */
+  }
+  /* Stop forcing full viewport height (this causes overlap with fixed top/bottom elements) */
+  .contact-main {
+    min-height: auto !important;   /* stop forcing 100vh */
+    flex-direction: column;
+    padding: 7rem 1rem 7rem 1rem;  /* top + bottom space for logo & menu */
+    gap: 1.5rem;
+  }
+
+  /* Make each column full width and centered with internal padding */
+  .contact-form-section,
+  .contact-info-section {
+    width: 100%;
     max-width: 600px;
     margin: 0 auto;
   }
-  
-  .hero {
-    padding: 6rem 2rem 8rem 2rem; /* Reduce padding on mobile */
+
+  /* Hero spacing for tablet */
+  .contact-hero {
+    margin-top: 0;                 /* hero sits naturally above contact-main */
+    padding: 2rem 1.25rem;
+  }
+
+  /* Slightly reduce logo size visually so it doesn't take too much space on tablets */
+  .logo-image {
+    height: 80px;
+    max-height: 80px;
   }
 }
 
 @media screen and (max-width: 480px) {
-  .logo-container {
-    top: 0.5rem;
-    left: 1rem;
-  }
-
-  .hero {
-    padding: 7rem 1rem 8rem 1rem; /* Further reduce padding on small mobile */
+  .video-wrapper {
+    max-height: 450px;
+    margin: 0 auto 1.5rem auto;
   }
   
   .video-grid {
-    gap: 1rem;
+    gap: 1.5rem;
+    margin: 1rem auto;
+    max-width: 95vw;
+  }
+  
+  .youtube-video {
+    padding-bottom: 40%; /* Even shorter on small mobile */
+  }
+  
+  .video-description {
+    padding: 0.75rem;
+  }
+  
+  .video-description p {
+    font-size: 0.65rem;
+    line-height: 1.3;
+  }
+  .mix-container {
+    max-height: 550px;
+    margin: 0 auto 1.5rem auto;
+  }
+  
+  .mix-grid {
+    gap: 1.5rem;
+    margin: 1rem auto;
+    max-width: 95vw;
+  }
+  
+  .mix-container iframe {
+    height: 220px !important; /* Even shorter on small mobile */
+  }
+  
+  .mix-description {
+    padding: 0.75rem;
+  }
+  
+  .mix-description p {
+    font-size: 0.65rem;
+    line-height: 1.3;
+  }
+  .contact-main {
+    padding: 8rem 1rem 8rem 1rem;  /* even more space on very small screens */
+  }
+
+  .contact-form-section,
+  .contact-info-section {
+    padding: 1rem 1rem;
+  }
+
+  .contact-hero {
+    padding: 1.25rem 1rem;
+  }
+
+  .contact-hero h1 { font-size: 1.2rem; }
+  .contact-hero p { font-size: 0.75rem; max-width: 95%; margin: 0 auto; }
+
+  /* ensure inputs and button scale nicely */
+  .contact-form input,
+  .contact-form textarea,
+  .submit-btn {
+    font-size: 0.85rem;
   }
 }
