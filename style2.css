@@ -244,9 +244,10 @@ header {
   background-color: #FAF9F6; /* Changed from #000 to match description background */
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  min-height: 300px; /* Change from fixed height to min-height */
+  overflow: visible; /* Change from hidden to visible */
   box-sizing: border-box;
-  min-height: 300px; /* Ensure minimum height */
+  
 }
 
 .local-video {
@@ -330,8 +331,8 @@ header {
   background-color: #000;
   display: flex;
   flex-direction: column;
-  height: 480px;
-  overflow: hidden;
+  min-height: 480px; /* Change from fixed height to min-height */
+  overflow: visible; /* Change from hidden to visible */
   box-sizing: border-box;
   justify-content: space-between;
 }
@@ -1172,15 +1173,17 @@ header {
 
   /*videos.html*/
   .video-wrapper {
-    max-height: 500px;
+    min-height: 300px; /* Flexible minimum height for tablets */
     margin: 0 auto 2rem auto;
+    overflow: visible; /* Ensure content isn't cut off */
+    max-height: 600px;
   }
   
   .video-grid {
     grid-template-columns: 1fr;
     gap: 2rem;
     margin: 2rem auto;
-    max-width: 90vw;
+    max-width: 100vw;
   }
   
   .youtube-video {
@@ -1189,9 +1192,10 @@ header {
 
   /*mymixes.html*/
   .mix-container {
-    max-height: 600px;
+    min-height: 450px; /* Flexible minimum height for tablets */
     margin: 0 auto 2rem auto;
-    overflow: hidden;
+    overflow: visible; /* Ensure content isn't cut off */
+    max-height: 600px;
   }
   
   .mix-grid {
@@ -1202,7 +1206,7 @@ header {
   }
   
   .mix-container iframe {
-    height: 250px !important; /* Make embedded players shorter */
+    height: 250px !important;
   }
 
   /*contact.html*/
@@ -1281,14 +1285,14 @@ header {
 @media screen and (max-width: 480px) {
   /*video.html*/
   .video-wrapper {
-    max-height: 450px;
+    min-height: 400px; /* Even more flexible for mobile */
     margin: 0 auto 1.5rem auto;
   }
   
   .video-grid {
     gap: 1.5rem;
     margin: 1rem auto;
-    max-width: 95vw;
+    max-width: 100vw;
   }
   
   .youtube-video {
@@ -1297,6 +1301,7 @@ header {
   
   .video-description {
     padding: 0.75rem;
+    min-height: auto; /* Remove any minimum height constraints */
   }
   
   .video-description p {
@@ -1306,22 +1311,23 @@ header {
 
   /*mymixes.html*/
   .mix-container {
-    max-height: 550px;
+    min-height: 400px; /* Even more flexible for mobile */
     margin: 0 auto 1.5rem auto;
+  }
+  
+  .mix-container iframe {
+    height: 220px !important;
+  }
+  
+  .mix-description {
+    padding: 0.75rem;
+    min-height: auto; /* Remove any minimum height constraints */
   }
   
   .mix-grid {
     gap: 1.5rem;
     margin: 1rem auto;
     max-width: 95vw;
-  }
-  
-  .mix-container iframe {
-    height: 220px !important; /* Even shorter on small mobile */
-  }
-  
-  .mix-description {
-    padding: 0.75rem;
   }
   
   .mix-description p {

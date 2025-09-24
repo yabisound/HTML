@@ -15,7 +15,6 @@
       overflow: hidden;
       height: 100vh;
       width: 100vw;
-     
     }
 
     .image-container {
@@ -32,23 +31,70 @@
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
       pointer-events: none;
     }
+
+    /* Loading screen styles */
+    .loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #FAF9F6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      transition: opacity 0.5s ease-out;
+    }
+
+    .loading-screen.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .progress-bar {
+      width: 200px;
+      height: 4px;
+      background: #e0e0e0;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: #8B4513;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
   </style>
   
+  <!-- Preload the first few images for faster initial display -->
+  <link rel="preload" as="image" href="images/image00001.jpeg">
+  <link rel="preload" as="image" href="images/image00003.jpeg">
+  <link rel="preload" as="image" href="images/image00006.jpeg">
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+    </div>
+
     <header>
         <div class="logo-container">
           <div class="logo" id="logo">
             <img src="images/logo marron.png" alt="DJ Yabi Logo" class="logo-image">
           </div>
         </div>
-      </header>
+    </header>
     
-      <main id="mainContent">
+    <main id="mainContent">
         <div class="image-container" id="imageContainer"></div>
-      </main>
+    </main>
     
-      <nav class="bottom-menu">
+    <nav class="bottom-menu">
         <div class="menu-left">
           <a href="about.html">About</a>
           <a href="MyMixes.html">Mixes</a>
@@ -59,14 +105,13 @@
           <a href="events.html">Events</a>
           <a href="contact.html">Contact</a>
         </div>
-      </nav>
+    </nav>
     
-      <div id="teaserOverlay">
+    <div id="teaserOverlay">
         <video loop id="teaserVideo" playsinline muted>
           <source src="videos/teaser.mp4" type="video/mp4" />
         </video>
-      </div>
-      
+    </div>
       
   <script>
     const images = [
@@ -80,38 +125,61 @@
       'images/image00025.jpeg',
       'images/P1020073.JPG',
       'images/image00026.jpeg'
-
     ];
 
     let index = 0;
     const container = document.getElementById('imageContainer');
+    const loadingScreen = document.getElementById('loadingScreen');
+    const progressFill = document.getElementById('progressFill');
     let currentImage = null;
-// Preload images
-const preloadedImages = [];
-  let imagesLoaded = 0;
 
-  images.forEach((src, i) => {
-    const img = new Image();
-    img.src = src;
-    img.onload = () => {
-      imagesLoaded++;
-      if (imagesLoaded === images.length) {
-        startAnimation(); // Only start when all are loaded
-      }
-    };
-    preloadedImages[i] = img;
-  });
+    // Preload images
+    const preloadedImages = [];
+    let imagesLoaded = 0;
 
-  function showNextImage() {
-    if (currentImage) {
-      container.removeChild(currentImage);
+    function updateProgress() {
+      const progress = (imagesLoaded / images.length) * 100;
+      progressFill.style.width = `${progress}%`;
     }
 
-    const img = preloadedImages[index].cloneNode();
-    img.className = 'splash-image';
-    // Get center of screen
-    const a = window.innerWidth / 2;
-    const b = window.innerHeight / 2;
+    function hideLoadingScreen() {
+      loadingScreen.classList.add('hidden');
+      setTimeout(() => {
+        if (loadingScreen.parentNode) {
+          loadingScreen.parentNode.removeChild(loadingScreen);
+        }
+      }, 500);
+    }
+
+    function startAnimation() {
+      hideLoadingScreen();
+      showNextImage();
+      setInterval(showNextImage, 400);
+    }
+
+    images.forEach((src, i) => {
+      const img = new Image();
+      img.src = src;
+      img.onload = () => {
+        imagesLoaded++;
+        updateProgress();
+        if (imagesLoaded === images.length) {
+          startAnimation(); // Only start when all are loaded
+        }
+      };
+      preloadedImages[i] = img;
+    });
+
+    function showNextImage() {
+      if (currentImage) {
+        container.removeChild(currentImage);
+      }
+
+      const img = preloadedImages[index].cloneNode();
+      img.className = 'splash-image';
+      // Get center of screen
+      const a = window.innerWidth / 2;
+      const b = window.innerHeight / 2;
 
       // Generate random position within ±10px of center
       const offsetX = a + (Math.random() * 140 - 70);
@@ -127,9 +195,6 @@ const preloadedImages = [];
 
       index = (index + 1) % images.length;
     }
-
-    showNextImage();
-    setInterval(showNextImage, 400); // Every 1 second
   </script>
   
 </body>
