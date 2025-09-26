@@ -1345,8 +1345,9 @@ header {
     font-size: 0.6rem;
   }
 
-  iframe {
-    height: 200px;
+   iframe {
+    width: 100%;
+    height: 200px; /* proportionally smaller */
   }
 
   /*contact.html*/
