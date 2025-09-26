@@ -7,30 +7,79 @@
   <script src="overlay-video.js" defer></script>
   <link rel="stylesheet" href="style2.css">
   <style>
-
     @media screen and (max-width: 768px) {
       .about-section {
         flex-direction: column;
       }
     }
+
+    /* Loading screen styles */
+    .loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #FAF9F6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      transition: opacity 0.5s ease-out;
+    }
+
+    .loading-screen.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .progress-bar {
+      width: 200px;
+      height: 4px;
+      background: #e0e0e0;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: #5A2E2E;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    /* Hide main content until loaded */
+    #mainContent {
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    #mainContent.loaded {
+      opacity: 1;
+    }
   </style>
 </head>
 <body>
+  <!-- Loading Screen -->
+  <div class="loading-screen" id="loadingScreen">
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+  </div>
+
   <header>
     <div class="logo-container">
       <div class="logo" id="logo">
         <img src="images/logo marron.png" alt="DJ Yabi Logo" class="logo-image">
       </div>
-  </div>
-  
+    </div>
   </header>
 
   <main id="mainContent">
-    
-
     <section class="about-section">
       <div class="about-image">
-        <img src="images/P1020072.JPG" alt="DJ Yabi performing" />
+        <img id="aboutPhoto" src="images/P1020072.JPG" alt="DJ Yabi performing" />
       </div>
       <div class="about-text">
         <h2>About</h2>
@@ -38,12 +87,10 @@
           DJ Yabi is a French DJ with a passport full of stamps and a USB full of global sounds. From Paris to Boston, Montreal to Dublin, she picks up vibes everywhere she goes.
         </p>
         <p>
-          She draws especially from the traditional sounds of Africa, the Middle East, the Caribbean, and Latin America. One thing’s for sure — she never ends a set without playing Bob Marley.
+          She draws especially from the traditional sounds of Africa, the Middle East, the Caribbean, and Latin America. One thing's for sure — she never ends a set without playing Bob Marley.
         </p>
-        
       </div>
     </section>
-
   </main>
 
   <div id="teaserOverlay">
@@ -51,6 +98,7 @@
       <source src="videos/teaser.mp4" type="video/mp4" />
     </video>
   </div>
+  
   <nav class="bottom-menu">
     <div class="menu-left">
       <a href="about.html">About</a>
@@ -63,5 +111,46 @@
       <a href="contact.html">Contact</a>
     </div>
   </nav>
+
+  <script>
+    const loadingScreen = document.getElementById('loadingScreen');
+    const progressFill = document.getElementById('progressFill');
+    const mainContent = document.getElementById('mainContent');
+    const aboutPhoto = document.getElementById('aboutPhoto');
+
+    // Create a new image object to preload the photo
+    const preloadImage = new Image();
+    
+    // Set up progress animation
+    let progress = 0;
+    const progressInterval = setInterval(() => {
+      progress += Math.random() * 30; // Simulate loading progress
+      if (progress > 90) progress = 90; // Don't complete until image actually loads
+      progressFill.style.width = `${progress}%`;
+    }, 100);
+
+    // When the image loads
+    preloadImage.onload = function() {
+      // Complete the progress bar
+      clearInterval(progressInterval);
+      progressFill.style.width = '100%';
+      
+      // Hide loading screen and show content after a brief delay
+      setTimeout(() => {
+        loadingScreen.classList.add('hidden');
+        mainContent.classList.add('loaded');
+        
+        // Remove loading screen from DOM after transition
+        setTimeout(() => {
+          if (loadingScreen.parentNode) {
+            loadingScreen.parentNode.removeChild(loadingScreen);
+          }
+        }, 500);
+      }, 200);
+    };
+
+    // Start loading the image
+    preloadImage.src = aboutPhoto.src;
+  </script>
 </body>
 </html>
