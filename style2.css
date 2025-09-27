@@ -1305,7 +1305,7 @@ header {
   }
 }
 
-@media screen and (max-width: 490px) {
+@media screen and (max-width: 480px) {
   /*video.html*/
   .video-wrapper {
     min-height: 400px; /* Even more flexible for mobile */

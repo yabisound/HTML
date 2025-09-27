@@ -9,64 +9,117 @@
   <script src="overlay-video.js" defer></script>
  
   <style>
-    body {
-      margin: 0;
-      background: #FAF9F6;
-      overflow: hidden;
-      height: 100vh;
-      width: 100vw;
-    }
+  /* Replace your mobile CSS in index.html with this more specific version */
 
-    .image-container {
-      position: relative;
-      width: 100%;
-      height: 100%;
-    }
+/* Default styles for all screen sizes */
+body {
+  margin: 0;
+  background: #FAF9F6;
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+}
 
-    .splash-image {
-      position: absolute;
-      width: 300px;
-      height: auto;
-      object-fit: cover;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-      pointer-events: none;
-    }
+.image-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
 
-    /* Loading screen styles */
-    .loading-screen {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: #FAF9F6;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-      transition: opacity 0.5s ease-out;
-    }
+.splash-image {
+  position: absolute;
+  width: 300px;
+  height: auto;
+  object-fit: cover;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+  z-index: 1;
+}
 
-    .loading-screen.hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
+/* Mobile-specific overrides - more specific selectors */
+@media screen and (max-width: 480px) {
+  html {
+    overflow: hidden !important;
+    width: 100vw !important;
+    height: 100vh !important;
+  }
+  
+  body {
+    overflow: hidden !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #FAF9F6;
+  }
 
-    .progress-bar {
-      width: 200px;
-      height: 4px;
-      background: #e0e0e0;
-      border-radius: 2px;
-      overflow: hidden;
-    }
+  .image-container {
+    position: relative !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    overflow: hidden !important;
+  }
 
-    .progress-fill {
-      height: 100%;
-      background: #8B4513;
-      width: 0%;
-      transition: width 0.3s ease;
-    }
+  .splash-image {
+    position: absolute !important;
+    width: 200px !important;
+    height: auto !important;
+    object-fit: cover !important;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.4) !important;
+    pointer-events: none !important;
+    z-index: 1 !important;
+  }
+
+  /* Ensure UI elements stay visible */
+  .logo-container {
+    z-index: 200 !important;
+    position: fixed !important;
+    top: 1rem !important;
+    left: 1rem !important;
+  }
+
+  .bottom-menu {
+    z-index: 200 !important;
+    position: fixed !important;
+    bottom: 1rem !important;
+  }
+}
+
+/* Loading screen styles */
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #FAF9F6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  transition: opacity 0.5s ease-out;
+}
+
+.loading-screen.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.progress-bar {
+  width: 200px;
+  height: 4px;
+  background: #e0e0e0;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #8B4513;
+  width: 0%;
+  transition: width 0.3s ease;
+}
   </style>
   
   <!-- Preload the first few images for faster initial display -->
@@ -115,86 +168,114 @@
       
   <script>
     const images = [
-      'images/image00001.jpeg',
-      'images/image00003.jpeg',
-      'images/image00006.jpeg',
-      'images/P1020098.JPG',
-      'images/image00010.jpeg',
-      'images/image00019.jpeg',
-      'images/P1020092.JPG',
-      'images/image00025.jpeg',
-      'images/P1020073.JPG',
-      'images/image00026.jpeg'
-    ];
+  'images/image00001.jpeg',
+  'images/image00003.jpeg',
+  'images/image00006.jpeg',
+  'images/P1020098.JPG',
+  'images/image00010.jpeg',
+  'images/image00019.jpeg',
+  'images/P1020092.JPG',
+  'images/image00025.jpeg',
+  'images/P1020073.JPG',
+  'images/image00026.jpeg'
+];
 
-    let index = 0;
-    const container = document.getElementById('imageContainer');
-    const loadingScreen = document.getElementById('loadingScreen');
-    const progressFill = document.getElementById('progressFill');
-    let currentImage = null;
+let index = 0;
+const container = document.getElementById('imageContainer');
+const loadingScreen = document.getElementById('loadingScreen');
+const progressFill = document.getElementById('progressFill');
+let currentImage = null;
 
-    // Preload images
-    const preloadedImages = [];
-    let imagesLoaded = 0;
+// Preload images
+const preloadedImages = [];
+let imagesLoaded = 0;
 
-    function updateProgress() {
-      const progress = (imagesLoaded / images.length) * 100;
-      progressFill.style.width = `${progress}%`;
+function updateProgress() {
+  const progress = (imagesLoaded / images.length) * 100;
+  progressFill.style.width = `${progress}%`;
+}
+
+function hideLoadingScreen() {
+  loadingScreen.classList.add('hidden');
+  setTimeout(() => {
+    if (loadingScreen.parentNode) {
+      loadingScreen.parentNode.removeChild(loadingScreen);
     }
+  }, 500);
+}
 
-    function hideLoadingScreen() {
-      loadingScreen.classList.add('hidden');
-      setTimeout(() => {
-        if (loadingScreen.parentNode) {
-          loadingScreen.parentNode.removeChild(loadingScreen);
-        }
-      }, 500);
+function startAnimation() {
+  console.log('Starting animation...'); // Debug
+  hideLoadingScreen();
+  showNextImage();
+  setInterval(showNextImage, 400);
+}
+
+images.forEach((src, i) => {
+  const img = new Image();
+  img.src = src;
+  img.onload = () => {
+    imagesLoaded++;
+    updateProgress();
+    console.log(`Loaded image ${i + 1}/${images.length}`); // Debug
+    if (imagesLoaded === images.length) {
+      startAnimation();
     }
+  };
+  img.onerror = () => {
+    console.error(`Failed to load image: ${src}`); // Debug
+  };
+  preloadedImages[i] = img;
+});
 
-    function startAnimation() {
-      hideLoadingScreen();
-      showNextImage();
-      setInterval(showNextImage, 400);
-    }
+function showNextImage() {
+  console.log('showNextImage called'); // Debug
+  
+  if (currentImage) {
+    container.removeChild(currentImage);
+  }
 
-    images.forEach((src, i) => {
-      const img = new Image();
-      img.src = src;
-      img.onload = () => {
-        imagesLoaded++;
-        updateProgress();
-        if (imagesLoaded === images.length) {
-          startAnimation(); // Only start when all are loaded
-        }
-      };
-      preloadedImages[i] = img;
-    });
+  const img = preloadedImages[index].cloneNode();
+  img.className = 'splash-image';
+  
+  // Mobile-friendly positioning with debugging
+  const isMobile = window.innerWidth <= 480;
+  const centerX = window.innerWidth / 2;
+  const centerY = window.innerHeight / 2;
+  
+  console.log(`Mobile: ${isMobile}, Viewport: ${window.innerWidth}x${window.innerHeight}`); // Debug
+  
+  // Smaller random offset on mobile
+  const offsetRange = isMobile ? 60 : 140;
+  const offsetX = centerX + (Math.random() * offsetRange - offsetRange/2);
+  const offsetY = centerY + (Math.random() * offsetRange - offsetRange/2);
 
-    function showNextImage() {
-      if (currentImage) {
-        container.removeChild(currentImage);
-      }
+  img.style.left = `${offsetX}px`;
+  img.style.top = `${offsetY}px`;
+  img.style.transform = 'translate(-50%, -50%)';
+  img.style.width = isMobile ? '200px' : '300px';
+  img.style.zIndex = '1';
+  img.style.position = 'absolute';
+  
+  console.log(`Image positioned at: ${offsetX}, ${offsetY}`); // Debug
+  console.log(`Container bounds:`, container.getBoundingClientRect()); // Debug
 
-      const img = preloadedImages[index].cloneNode();
-      img.className = 'splash-image';
-      // Get center of screen
-      const a = window.innerWidth / 2;
-      const b = window.innerHeight / 2;
+  container.appendChild(img);
+  currentImage = img;
 
-      // Generate random position within ±10px of center
-      const offsetX = a + (Math.random() * 140 - 70);
-      const offsetY = b + (Math.random() * 120 - 60);
+  index = (index + 1) % images.length;
+}
 
-      // Position image so its center is at (offsetX, offsetY)
-      img.style.left = `${offsetX}px`;
-      img.style.top = `${offsetY}px`;
-      img.style.transform = 'translate(-50%, -50%)';
+// Additional mobile debugging
+window.addEventListener('load', () => {
+  console.log('Window loaded');
+  console.log('Container element:', container);
+  console.log('Container computed styles:', window.getComputedStyle(container));
+});
 
-      container.appendChild(img);
-      currentImage = img;
-
-      index = (index + 1) % images.length;
-    }
+window.addEventListener('resize', () => {
+  console.log('Window resized to:', window.innerWidth, 'x', window.innerHeight);
+});
   </script>
   
 </body>
