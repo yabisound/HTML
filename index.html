@@ -167,7 +167,10 @@ body {
     </div>
       
   <script>
-    const images = [
+
+// Fixed JavaScript with proper timing for index.html
+
+const images = [
   'images/image00001.jpeg',
   'images/image00003.jpeg',
   'images/image00006.jpeg',
@@ -185,6 +188,7 @@ const container = document.getElementById('imageContainer');
 const loadingScreen = document.getElementById('loadingScreen');
 const progressFill = document.getElementById('progressFill');
 let currentImage = null;
+let animationInterval;
 
 // Preload images
 const preloadedImages = [];
@@ -207,8 +211,8 @@ function hideLoadingScreen() {
 function startAnimation() {
   console.log('Starting animation...'); // Debug
   hideLoadingScreen();
-  showNextImage();
-  setInterval(showNextImage, 400);
+  showNextImage(); // Show first image immediately
+  animationInterval = setInterval(showNextImage, 400);
 }
 
 images.forEach((src, i) => {
@@ -229,8 +233,9 @@ images.forEach((src, i) => {
 });
 
 function showNextImage() {
-  console.log('showNextImage called'); // Debug
+  console.log(`Showing image ${index + 1}/${images.length}: ${images[index]}`); // Debug
   
+  // Remove current image immediately
   if (currentImage) {
     container.removeChild(currentImage);
   }
@@ -242,8 +247,6 @@ function showNextImage() {
   const isMobile = window.innerWidth <= 480;
   const centerX = window.innerWidth / 2;
   const centerY = window.innerHeight / 2;
-  
-  console.log(`Mobile: ${isMobile}, Viewport: ${window.innerWidth}x${window.innerHeight}`); // Debug
   
   // Smaller random offset on mobile
   const offsetRange = isMobile ? 60 : 140;
@@ -258,19 +261,33 @@ function showNextImage() {
   img.style.position = 'absolute';
   
   console.log(`Image positioned at: ${offsetX}, ${offsetY}`); // Debug
-  console.log(`Container bounds:`, container.getBoundingClientRect()); // Debug
 
   container.appendChild(img);
   currentImage = img;
 
-  index = (index + 1) % images.length;
+  // Increment index and handle loop boundary
+  const nextIndex = (index + 1) % images.length;
+  
+  // Add extra delay only when transitioning from last image back to first
+  if (index === images.length - 1) {
+    console.log('Last image shown, adding extra delay before first image'); // Debug
+    index = nextIndex;
+    clearInterval(animationInterval);
+    setTimeout(() => {
+      animationInterval = setInterval(showNextImage, 400);
+    }, 400); // Extra 400ms delay to let the last image be visible longer
+  } else {
+    index = nextIndex;
+  }
 }
 
 // Additional mobile debugging
 window.addEventListener('load', () => {
   console.log('Window loaded');
   console.log('Container element:', container);
-  console.log('Container computed styles:', window.getComputedStyle(container));
+  if (container) {
+    console.log('Container computed styles:', window.getComputedStyle(container));
+  }
 });
 
 window.addEventListener('resize', () => {
