@@ -816,24 +816,6 @@ header {
       transform: translateY(-2px);
     }
 
-    @media (max-width: 768px) {
-      .contact-hero h1 {
-        font-size: 2rem;
-      }
-
-      .contact-main {
-        flex-direction: column;
-      }
-
-      .contact-form-section,
-      .contact-info-section {
-        padding: 2rem 1.5rem;
-      }
-
-      .social-links {
-        justify-content: center;
-      }
-    }
   
 /* photos.html*/
 .photo-carousel-section {
@@ -1478,29 +1460,84 @@ header {
   }
 
   /*contact.html*/
+  /* Use body prefix to increase specificity */
   .contact-main {
-    padding: 8rem 1rem 8rem 1rem;  /* even more space on very small screens */
+    flex-direction: column !important;
+    min-height: auto !important;
+    padding: 1rem 0 1rem 0 !important;
   }
 
-  .contact-form-section,
-  .contact-info-section {
-    padding: 1rem 1rem;
+   /* Contact form section - proper padding */
+  .contact-main .contact-form-section {
+    padding: 1rem 2rem 1rem 2rem !important; /* Your desired padding */
+    max-width: 72% !important;
+  }
+  
+  /* Contact info section - matching padding */
+  .contact-main .contact-info-section {
+    padding: 1rem 2rem 1rem 2rem !important; /* Same padding as form section */
+    width: 72% !important;
+    max-width: 72% !important;
   }
 
+  /* Hero section adjustments */
   .contact-hero {
-    padding: 1.25rem 1rem;
+    padding: 0 4rem;
+    min-height: 60vh; /* Shorter on mobile */
   }
-
-  .contact-hero h1 { font-size: 1.2rem; }
-  .contact-hero p { font-size: 0.75rem; max-width: 95%; margin: 0 auto; }
-
-  /* ensure inputs and button scale nicely */
+  
+  .contact-hero h1 { 
+    font-size: 1.2rem; 
+  }
+  
+  .contact-hero p { 
+    font-size: 0.65rem; 
+    max-width: 95%; 
+    margin: 0 auto; 
+  }
+  
+  /* Fix input and placeholder font sizes */
   .contact-form input,
-  .contact-form textarea,
-  .submit-btn {
-    font-size: 0.85rem;
+  .contact-form textarea {
+    font-size: 0.65rem; /* Input text size */
   }
-
+  
+  .contact-form input::placeholder,
+  .contact-form textarea::placeholder {
+    font-size: 0.5rem; /* Smaller placeholder text */
+  }
+  
+  /* Button styling */
+  .submit-btn {
+    font-size: 0.6rem;
+    padding: 0.8rem 1.5rem;
+  }
+  
+  /* Contact info section headings and text */
+  .contact-info-section h2 {
+    font-size: 1rem;
+  }
+  
+  .contact-detail h3 {
+    font-size: 0.8rem;
+  }
+  
+  .contact-detail p {
+    font-size: 0.6rem;
+  }
+  
+  /* Music player section */
+  .music-player-section {
+    padding: 1.5rem;
+    margin-top: 2rem;
+    
+  }
+  
+  .listen-btn {
+    font-size: 0.6rem;
+    padding: 0.7rem 1.5rem;
+  }
+  
   /*event.html*/
   .header-city {
     padding: 5rem 1rem 3rem 1rem; /* Even more spacing on small screens */
