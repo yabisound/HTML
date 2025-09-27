@@ -1596,13 +1596,13 @@ header {
   
   /*event.html*/
   .header-city {
-    padding: 5rem 1rem 3rem 1rem; /* Even more spacing on small screens */
+    padding: 6rem 1rem 5rem 1rem; /* Even more spacing on small screens */
  
   }
   
   .map-container-city {
     width: 95%;
-    max-height: none; /* Remove height constraint */
+    max-height:100vh; /* Remove height constraint */
     min-height: auto; /* Remove min-height constraint */
     margin: 0 auto 1rem auto; 
   }
@@ -1632,7 +1632,7 @@ header {
   .map-container {
     width: 95%;
     max-height: calc(100vh - 180px);
-    min-height: 250px;
+    min-height: 300px;
   }
   
   .city-label {
