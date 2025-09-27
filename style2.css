@@ -1215,26 +1215,82 @@ header {
   }
 
   /*contact.html*/
-  /* Stop forcing full viewport height (this causes overlap with fixed top/bottom elements) */
-  .contact-main {
-    min-height: auto !important;   /* stop forcing 100vh */
-    flex-direction: column;
-    padding: 7rem 1rem 7rem 1rem;  /* top + bottom space for logo & menu */
-    gap: 1.5rem;
+.contact-main {
+    flex-direction: column !important;
+    min-height: auto !important;
+   
   }
 
-  /* Make each column full width and centered with internal padding */
-  .contact-form-section,
-  .contact-info-section {
-    width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
+   /* Contact form section - proper padding */
+  .contact-main .contact-form-section {
+    padding: 1rem 6rem  !important; /* Your desired padding */
+    width: 72% !important;
+    max-width: 72% !important;
+  }
+  
+  /* Contact info section - matching padding */
+  .contact-main .contact-info-section {
+    padding: 1rem 6rem !important; /* Same padding as form section */
+    width: 72% !important;
+    max-width: 72% !important;
   }
 
-  /* Hero spacing for tablet */
+  /* Hero section adjustments */
   .contact-hero {
-    margin-top: 0;                 /* hero sits naturally above contact-main */
-    padding: 2rem 1.25rem;
+    padding: 0 5rem 0 5rem ;
+    min-height: 60vh; /* Shorter on mobile */
+  }
+  
+  .contact-hero h1 { 
+    font-size: 1.2rem; 
+  }
+  
+  .contact-hero p { 
+    font-size: 0.65rem; 
+    max-width: 100%; 
+    margin: 0 auto; 
+  }
+  
+  /* Fix input and placeholder font sizes */
+  .contact-form input,
+  .contact-form textarea {
+    font-size: 0.65rem; /* Input text size */
+  }
+  
+  .contact-form input::placeholder,
+  .contact-form textarea::placeholder {
+    font-size: 0.5rem; /* Smaller placeholder text */
+  }
+  
+  /* Button styling */
+  .submit-btn {
+    font-size: 0.6rem;
+    padding: 0.8rem 1.5rem;
+  }
+  
+  /* Contact info section headings and text */
+  .contact-info-section h2 {
+    font-size: 1rem;
+  }
+  
+  .contact-detail h3 {
+    font-size: 0.8rem;
+  }
+  
+  .contact-detail p {
+    font-size: 0.6rem;
+  }
+  
+  /* Music player section */
+  .music-player-section {
+    padding: 1.5rem;
+    margin-top: 2rem;
+    
+  }
+  
+  .listen-btn {
+    font-size: 0.6rem;
+    padding: 0.7rem 1.5rem;
   }
 
   /* Slightly reduce logo size visually so it doesn't take too much space on tablets */
@@ -1469,13 +1525,13 @@ header {
 
    /* Contact form section - proper padding */
   .contact-main .contact-form-section {
-    padding: 1rem 2rem 1rem 2rem !important; /* Your desired padding */
+    padding: 1rem 4.5rem 1rem 4.5rem !important; /* Your desired padding */
     max-width: 72% !important;
   }
   
   /* Contact info section - matching padding */
   .contact-main .contact-info-section {
-    padding: 1rem 2rem 1rem 2rem !important; /* Same padding as form section */
+    padding: 1rem 4.5rem 1rem 4.5rem !important; /* Same padding as form section */
     width: 72% !important;
     max-width: 72% !important;
   }
