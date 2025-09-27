@@ -1306,32 +1306,99 @@ header {
 }
 
 @media screen and (max-width: 480px) {
-  /*video.html*/
-  .video-wrapper {
-    min-height: 400px; /* Even more flexible for mobile */
-    margin: 0 auto 1.5rem auto;
-  }
-  
-  .video-grid {
-    gap: 1.5rem;
-    margin: 1rem auto;
-    max-width: 100vw;
-  }
-  
-  .youtube-video {
-    padding-bottom: 40%; /* Even shorter on small mobile */
-  }
-  
-  .video-description {
-    padding: 0.75rem;
-    min-height: auto; /* Remove any minimum height constraints */
-  }
-  
-  .video-description p {
-    font-size: 0.65rem;
-    line-height: 1.3;
+  /*logo*/
+  .logo-container {
+    top: 0.4rem;
+    left: 0.4rem;
   }
 
+  /*bottom menu*/
+  .bottom-menu {
+    bottom: 0.5rem;
+    padding: 0 1rem;
+    z-index: 100;
+  }
+
+  .bottom-menu .menu-left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-left: 0.4rem; /* Use margin instead of padding */
+  }
+
+  .bottom-menu .menu-right {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-right: 1.5rem; /* Use margin instead of padding */
+  }
+  /*video.html*/
+  /* Video grid - properly centered (same as mix-grid) */
+.video-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    width: 78%;
+    max-width: 78%;
+    margin: 0 auto;
+    padding: 0 1rem;
+    box-sizing: border-box;
+}
+
+/* Video wrappers (same as mix-container) */
+.video-wrapper {
+    width: 100%;
+    max-width: 100%;
+    min-height: 400px;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* Ensure YouTube iframes don't overflow (same as mix-container iframe) */
+/* YouTube iframes - responsive sizing */
+.youtube-video iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+/* YouTube video container */
+.youtube-video {
+    width: 100%;
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio for YouTube */
+    height: 0;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+/* Video descriptions (same as mix-description) */
+.video-description {
+    padding: 0.75rem;
+    min-height: auto;
+    box-sizing: border-box;
+}
+
+.video-description h3 {
+    font-size: 0.9rem;
+    margin: 0 0 0.5rem 0;
+}
+
+.video-description p {
+    font-size: 0.65rem;
+    line-height: 1.3;
+    margin: 0;
+}
+
+/* Video meta (same as mix-meta) */
+.video-meta {
+    font-size: 0.65rem;
+    padding: 0.4rem 0.75rem;
+    box-sizing: border-box;
+}
   /*mymixes.html*/
   /* Ensure body and html don't overflow */
   html, body {
@@ -1353,7 +1420,7 @@ header {
   
   /* Hero specific adjustments for mobile */
   .hero {
-    padding: 6rem 1rem 8rem 1rem; /* Space for logo and menu */
+    padding: 4rem 1rem 2rem 1rem; /* Space for logo and menu */
   }
   
   /* Mix grid - properly centered */
@@ -1361,8 +1428,8 @@ header {
     display: grid;
     grid-template-columns: 1fr;
     gap: 1.5rem;
-    width: 100%;
-    max-width: 100%;
+    width: 78%;
+    max-width: 78%;
     margin: 0 auto;
     padding: 0 1rem;
     box-sizing: border-box;
