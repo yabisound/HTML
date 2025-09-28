@@ -5,160 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DJ Yabi - Dublin Events</title>
   <link rel = "stylesheet" href = "style2.css">
-  <style>
-     @font-face {
-        font-family: "fett";
-        src: url(fonts/TestSöhneMono-Fett.otf) format("truetype");
-        font-weight: normal;
-        font-style: normal;
-        
-    }
-
-    @font-face {
-      font-family: "Sohne-Leicht";
-      src: url(fonts/TestSöhneMono-Leicht.otf) format("opentype");
-      font-weight: normal;
-      font-style: normal;
-    }
-     /* Style for bold text in event info */
-    .event-info strong {
-        font-weight: bold;
-        font-family: "fett", sans-serif;
-    }
   
-    .header-city {
-      text-align: center;
-      padding: 20px;
-      background-color: #FAF9F6;
-      font-family: "fett";
-      font-size: 1.1rem;
-      
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-    
-    .city-title {
-      color: #5A2E2E;
-      font-size: 1.5em;
-      margin: 20px 0;
-      
-    }
-
-    .map-container-city {
-      border: 1.5px solid #5A2E2E;
-      width: 70%;
-      position: relative;
-      margin: 0 auto 3rem auto; 
-      overflow: visible;
-      background: #FFFDFA;
-      /* Remove the fixed aspect-ratio */
-      /* Add minimum constraints like the main events page */
-      min-width: 300px;
-      max-width: 1200px;
-      /* Let the container height adapt to the image */
-      height: auto;
-    }
-        
-    .city-map {
-      width: 100%;
-      height: auto; /* Change from 100% to auto */
-      /* Remove object-fit: contain since we want natural sizing */
-      display: block;
-    }
-    
-    .event-pin {
-      position: absolute;
-      cursor: pointer;
-      z-index: 10;
-      transform: translate(-50%, -100%);
-    }
-    
-    .event-pin .pin-dot {
-      width: 10px;
-      height: 10px;
-      background: #5A2E2E;
-      border-radius: 50%;
-      border: 1px solid #FAF9F6;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-    }
-    
-    .event-pin .event-label {
-      position: absolute;
-      bottom: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #5A2E2E;
-      color: #FAF9F6;
-      padding: 4px 8px;
-      border-radius: 2px;
-      font-size: 10px;
-      white-space: nowrap;
-      margin-bottom: 5px;
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-    
-    .event-pin:hover .event-label {
-      opacity: 1;
-    }
-    
-    .event-info {
-      position: absolute;
-      background: rgba(255, 253, 250, 0.95);
-      border: 2px solid #5A2E2E;
-      border-radius: 8px;
-      padding: 10px;
-      width: 220px;
-      
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-      z-index: 20;
-      display: none;
-    }
-    
-    .event-info h3 {
-      color: #D38F0A;
-      font-size: 14px;
-      margin-left: 10px;
-    }
-    
-    .event-info p {
-      color: #5A2E2E;
-      font-size: 12px;
-      font-family: "Sohne-Leicht";
-      
-      margin-left: 10px;
-    }
-     .event-info .date-list {
-      color: #5A2E2E;
-      font-family: "Sohne-Leicht";
-      font-size: 10px;
-      margin-left: 10px;
-    }
-    
-    .close-info {
-      position: absolute;
-      top: 5px;
-      right: 8px;
-      background: none;
-      border: none;
-      font-size: 15px;
-      cursor: pointer;
-      color: #5A2E2E;
-    }
-            /* Orange pins for Montreal events */
-    .event-pin.dublin-pin .pin-dot {
-      background: #D38F0A !important;
-      border: 1.5px solid #5A2E2E !important;
-    }
-
-    /* Orange labels for Montreal events */
-    .event-pin.dublin-pin .event-label {
-      background: #D38F0A !important;
-      color: #FAF9F6 !important;
-    }
-  </style>
 </head>
 <body>
  <header>
@@ -174,15 +21,15 @@
   </div>
   
   <div class="map-container-city">
-    <img src="images/dublin-map.png" alt="Vintage World Map" class="city-map">
+    <img src="images/dublin-map-new.png" alt="Vintage World Map" class="city-map">
     
     <!-- Event pins - adjust positions as needed -->
-    <div class="event-pin" data-original-top="50" data-original-left="28" style="top: 50%; left: 28%;" onclick="showEventInfo(event, 'venue1')">
+    <div class="event-pin" data-original-top="50" data-original-left="29" style="top: 50%; left: 98%;" onclick="showEventInfo(event, 'venue1')">
       <div class="event-label">Fidelity Bar & Studio</div>
       <div class="pin-dot"></div>
     </div>
     
-    <div class="event-pin" data-original-top="59" data-original-left="29.5" style="top: 59%; left: 29.5%;" onclick="showEventInfo(event, 'venue2')">
+    <div class="event-pin" data-original-top="59" data-original-left="30.5" style="top: 59%; left: 30.5%;" onclick="showEventInfo(event, 'venue2')">
       <div class="event-label">Lucky's Bar</div>
       <div class="pin-dot"></div>
     </div>
