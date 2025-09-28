@@ -51,34 +51,38 @@ nav.bottom-menu .menu-right a:hover {
     <section class="contact-main">
       <!-- Left Column - Contact Form -->
      <div class="contact-form-section">
-        <h2>Send a Message</h2>
-        
-
-        
-        <form class="contact-form" name="contact" method="POST" data-netlify="true" data-netlify-recaptcha="true" action="/thank-you.html">
-          <input type="hidden" name="form-name" value="contact" />
-          
-          <div class="form-group">
-            <input type="text" name="name" placeholder="Your Name" required>
-          </div>
-          
-          <div class="form-group">
-            <input type="email" name="email" placeholder="Your Email" required>
-          </div>
-          
-          <div class="form-group">
-            <input type="text" name="subject" placeholder="Subject" required>
-          </div>
-          
-          <div class="form-group">
-            <textarea name="message" placeholder="Your Message" required></textarea>
-          </div>
-          
-          <div data-netlify-recaptcha="true"></div>
-          
-          <button type="submit" class="submit-btn">Send Message</button>
-        </form>
-      </div>
+  <h2>Send a Message</h2>
+  
+  <form class="contact-form" action="https://formspree.io/f/meoraqpb" method="POST">
+    <div class="form-group">
+      <input type="text" name="name" placeholder="Your Name" required>
+    </div>
+    
+    <div class="form-group">
+      <input type="email" name="email" placeholder="Your Email" required>
+    </div>
+    
+    <div class="form-group">
+      <input type="text" name="_subject" placeholder="Subject" required>
+    </div>
+    
+    <div class="form-group">
+      <textarea name="message" placeholder="Your Message" required></textarea>
+    </div>
+    
+    <!-- FormSubmit configuration -->
+    <input type="hidden" name="_next" value="https://www.djyabi.com/contact.html?sent=true">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_template" value="table">
+    
+    <button type="submit" class="submit-btn">Send Message</button>
+  </form>
+  
+  <!-- Success message (shows when ?sent=true in URL) -->
+  <div id="success-message" style="display: none; background: #d4edda; color: #155724; padding: 1rem; border-radius: 5px; margin-top: 1rem;">
+    <strong>Message sent successfully!</strong> Thank you for reaching out. I'll get back to you soon.
+  </div>
+</div>
       
       <!-- Right Column - Contact Info -->
       <div class="contact-info-section">
@@ -139,28 +143,12 @@ nav.bottom-menu .menu-right a:hover {
       </div>
     </nav>
   <script>
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      // Get form data
-      const formData = new FormData(this);
-      const name = formData.get('name');
-      const email = formData.get('email');
-      const subject = formData.get('subject');
-      const message = formData.get('message');
-      
-      // Create mailto link
-      const mailtoLink = `mailto:yabisound@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`;
-      
-      // Open email client
-      window.location.href = mailtoLink;
-      
-      // Show confirmation
-      alert('Opening your email client... If it doesn\'t open automatically, please email me directly at yabisound@gmail.com');
-      
-      // Reset form
-      this.reset();
-    });
-  </script>
+// Show success message if redirected back with ?sent=true
+if (window.location.search.includes('sent=true')) {
+  document.getElementById('success-message').style.display = 'block';
+  // Remove the parameter from URL
+  window.history.replaceState({}, document.title, window.location.pathname);
+}
+</script>
 </body>
 </html>
