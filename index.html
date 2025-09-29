@@ -277,7 +277,7 @@ function showNextImage() {
     clearInterval(animationInterval);
     setTimeout(() => {
       animationInterval = setInterval(showNextImage, 600);
-    }, 300); // Extra 400ms delay to let the last image be visible longer
+    }, 400); // Extra 400ms delay to let the last image be visible longer
   } else {
     index = nextIndex;
   }
