@@ -123,9 +123,11 @@ body {
   </style>
   
   <!-- Preload the first few images for faster initial display -->
-  <link rel="preload" as="image" href="images/image00001.jpeg">
-  <link rel="preload" as="image" href="images/image00003.jpeg">
-  <link rel="preload" as="image" href="images/image00006.jpeg">
+  <link rel="preload" as="image" href="images/image00001.webp">
+  <link rel="preload" as="image" href="images/image00003.webp">
+  <link rel="preload" as="image" href="images/image00006.webp">
+  <link rel="preload" as="image" href="images/P1020098.webp">
+  <link rel="preload" as="image" href="images/image00010.webp">
 </head>
 <body>
     <!-- Loading Screen -->
@@ -212,7 +214,7 @@ function startAnimation() {
   console.log('Starting animation...'); // Debug
   hideLoadingScreen();
   showNextImage(); // Show first image immediately
-  animationInterval = setInterval(showNextImage, 400);
+  animationInterval = setInterval(showNextImage, 600);
 }
 
 images.forEach((src, i) => {
@@ -274,8 +276,8 @@ function showNextImage() {
     index = nextIndex;
     clearInterval(animationInterval);
     setTimeout(() => {
-      animationInterval = setInterval(showNextImage, 400);
-    }, 400); // Extra 400ms delay to let the last image be visible longer
+      animationInterval = setInterval(showNextImage, 600);
+    }, 300); // Extra 400ms delay to let the last image be visible longer
   } else {
     index = nextIndex;
   }
