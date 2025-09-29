@@ -190,7 +190,7 @@ const container = document.getElementById('imageContainer');
 const loadingScreen = document.getElementById('loadingScreen');
 const progressFill = document.getElementById('progressFill');
 let currentImage = null;
-let animationInterval;
+let animationTimeout; // Changed from interval to timeout for better control
 
 // Preload images
 const preloadedImages = [];
@@ -214,7 +214,6 @@ function startAnimation() {
   console.log('Starting animation...'); // Debug
   hideLoadingScreen();
   showNextImage(); // Show first image immediately
-  animationInterval = setInterval(showNextImage, 600);
 }
 
 images.forEach((src, i) => {
@@ -236,6 +235,12 @@ images.forEach((src, i) => {
 
 function showNextImage() {
   console.log(`Showing image ${index + 1}/${images.length}: ${images[index]}`); // Debug
+  
+  // Clear any existing timeout first
+  if (animationTimeout) {
+    clearTimeout(animationTimeout);
+    animationTimeout = null;
+  }
   
   // Remove current image immediately
   if (currentImage) {
@@ -267,20 +272,20 @@ function showNextImage() {
   container.appendChild(img);
   currentImage = img;
 
-  // Increment index and handle loop boundary
-  const nextIndex = (index + 1) % images.length;
+  // Move to next index
+  index = (index + 1) % images.length;
   
-  // Add extra delay only when transitioning from last image back to first
-  if (index === images.length - 1) {
+  // Determine delay for next image
+  let nextDelay = 600; // Normal delay
+  
+  // If we just showed the last image (index is now 0), add extra delay
+  if (index === 0) {
+    nextDelay = 1000; // Extra delay when looping back to first image
     console.log('Last image shown, adding extra delay before first image'); // Debug
-    index = nextIndex;
-    clearInterval(animationInterval);
-    setTimeout(() => {
-      animationInterval = setInterval(showNextImage, 600);
-    }, 400); // Extra 400ms delay to let the last image be visible longer
-  } else {
-    index = nextIndex;
   }
+  
+  // Schedule next image
+  animationTimeout = setTimeout(showNextImage, nextDelay);
 }
 
 // Additional mobile debugging
@@ -294,6 +299,20 @@ window.addEventListener('load', () => {
 
 window.addEventListener('resize', () => {
   console.log('Window resized to:', window.innerWidth, 'x', window.innerHeight);
+});
+
+// Ensure animation stops when page is hidden (mobile optimization)
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) {
+    if (animationTimeout) {
+      clearTimeout(animationTimeout);
+    }
+  } else {
+    // Resume animation when page becomes visible again
+    if (!animationTimeout) {
+      animationTimeout = setTimeout(showNextImage, 600);
+    }
+  }
 });
   </script>
   
